@@ -35,20 +35,22 @@ app = FastAPI(
     version="2.0.0",
 )
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 app.mount(
     "/static",
-    StaticFiles(directory="app/static"),
+    StaticFiles(directory=os.path.join(BASE_DIR, "static")),
     name="static",
 )
 
 templates = Jinja2Templates(
-    directory="app/templates"
+    directory=os.path.join(BASE_DIR, "templates")
 )
 
 COOKIE_SECURE = (
     os.getenv(
         "COOKIE_SECURE",
-        "false",
+        "true",
     ).lower()
     == "true"
 )
